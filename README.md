@@ -68,7 +68,6 @@ shariah-audit-ai/
 ├── demo document/               # Sample data & demo materials
 │
 ├── README.md
-└── package.json
 ```
 
 ---
