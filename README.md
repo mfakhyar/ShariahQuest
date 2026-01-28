@@ -1,194 +1,159 @@
-# 🕌 ShariahQuest
+# ShariahQuest: The AI-Powered Audit Workbench
 
-### AI-Powered Shariah Audit Readiness System
-
-ShariahQuest is a **web-based AI-assisted Shariah Audit Readiness Analysis System** designed to help financial institutions and organizations assess their preparedness for **Shariah compliance audits**.
-
-The system analyzes uploaded financial and audit-related documents to:
-
-* Detect **Shariah non-compliance risks** (e.g. riba, non-compliant financing)
-* Generate an **audit readiness score**
-* Provide **clear corrective recommendations** aligned with Shariah governance standards
+**ShariahQuest** is a specialized RegTech platform designed to automate Shariah compliance auditing for Islamic Financial Institutions. It solves the problem of "AI Hallucinations" in financial audits by using a **Hybrid Intelligence Engine**—combining deterministic Python logic for math/ratios with Google's Gemini 2.5 Flash for context-aware reasoning.
 
 ---
 
-## 🎯 Key Features
+## 🚀 Key Features
 
-* 📄 Upload financial & audit documents (PDF)
-* 🧠 AI-assisted Shariah compliance analysis
-* 📊 Shariah Audit Readiness Score (%)
-* ⚠️ Risk identification (e.g. riba exposure)
-* 🛠 Actionable improvement recommendations
-* 💻 Clean and user-friendly web interface
+* **Siloed Audit Engine:** Automatically switches rule sets based on document type (e.g., *SC Malaysia Stock Screening* vs. *BNM Governance Policy*).
+* **Math Override Protocol:** Uses Python to calculate critical ratios (e.g., 33% Debt Ratio) deterministically, preventing LLM calculation errors.
+* **RAG-Powered Compliance:** Retrieves actual legal text from the *ICMPS Guidelines* to ground every AI response in real regulation.
+* **Consultant-in-the-Loop:** A dedicated "Chat with Document" feature that allows human auditors to query specific clauses instantly.
+* **Certified Readiness Reports:** Generates granular "Readiness Scores" to tell auditors exactly when a document is ready for submission.
 
 ---
 
-## 🏗 System Architecture
+## 🏗️ Technical Architecture
+
+The system is built on a "Hybrid Intelligence" model that separates **Control**, **Logic**, and **Reasoning**.
+
+### **Backend Structure (`/backend`)**
+
+* 
+**`main.py` (The Controller):** The FastAPI gateway that routes documents to the correct "Silo" (Financial vs. Legal).
+
+
+* **`audit_rules.py` (The Guardrails):** Contains the deterministic Python logic for the "Math Override." It calculates the 33% Debt and 5% Tainted Income ratios using Regex, ensuring zero hallucinations.
+
+
+* **`ai_engine.py` (The Brain):** Manages the interaction with **Google Gemini 2.5 Flash**. It uses RAG to fetch the actual *ICMPS Guidelines* from `knowledge_base.py` and injects them into the prompt.
+
+
+* 
+**`knowledge_base.py`:** A librarian module that reads the regulatory PDFs directly from the disk to serve as the "Authority Document".
+
+
+
+### **Frontend Structure (`/frontend`)**
+
+* 
+**React + Vite:** A fast, responsive dashboard for auditors.
+
+
+* 
+**`AuditRow.jsx`:** Displays the granular compliance breakdown (Ratios vs. Keywords).
+
+
+* 
+**`Consultation.jsx`:** The interface for the "Consultant-in-the-Loop" chat feature.
+
+
+
+---
+
+## 📂 Project Structure
+
+```bash
+ShariahQuest/
+├── backend/                  # Python FastAPI Backend
+│   ├── ICMPS Guidelines...   # The Authority Document PDF
+│   ├── ai_engine.py          # Gemini 2.5 Integration
+│   ├── audit_rules.py        # Deterministic Math Logic
+│   ├── knowledge_base.py     # RAG Retrieval Logic
+│   ├── main.py               # API Gateway & Routing
+│   └── pdf_utils.py          # PyMuPDF Extraction
+│
+├── frontend/                 # React Frontend
+│   ├── src/
+│   │   ├── components/       # UI Components (Navbar, etc.)
+│   │   ├── api.js            # Axios Connections to Backend
+│   │   ├── Dashboard.jsx     # Main Audit Interface
+│   │   └── App.jsx           # Routing Logic
+│   └── package.json
+│
+├── demo document/            # Sample PDFs for Testing
+│   ├── Audited_Financial...  # Sample Financial Statements
+│   └── Murabahah_Agreement...# Sample Legal Contracts
+│
+└── README.md
 
 ```
-Frontend (React + Vite)
-        │
-        │ REST API (JSON)
-        ▼
-Backend (FastAPI - Python)
-        │
-        ├── AI Analysis Engine
-        ├── Shariah Audit Rules
-        └── PDF Processing Utilities
-```
 
 ---
 
-## 📁 Project Structure
+## 🛠️ Installation & Setup
 
-```
-shariah-audit-ai/
-│
-├── backend/                     # Python AI backend (FastAPI)
-│   ├── main.py                  # Backend entry point (API server)
-│   ├── ai_engine.py             # Core AI readiness analysis logic
-│   ├── audit_rules.py           # Shariah compliance rules & thresholds
-│   ├── pdf_utils.py             # PDF extraction & processing utilities
-│
-├── src/                         # Frontend source code (React + Vite)
-│   ├── assets/
-│   ├── App.jsx
-│   ├── main.jsx
-│   ├── api.js                   # API communication layer
-│   ├── context.jsx              # Global state management (Context API)
-│   ├── Home.jsx
-│   ├── Dashboard.jsx
-│   ├── Upload.jsx
-│   ├── Result.jsx
-│   ├── AuthPage.jsx
-│   ├── AuditRow.jsx
-│   ├── Navbar.jsx
-│   └── MockPages.jsx
-│
-├── demo document/               # Sample data & demo materials
-│
-├── README.md
-```
+### **Prerequisites**
 
----
+* Python 3.9+
+* Node.js & npm
+* A Google Gemini API Key
 
-## 🚀 Tech Stack
+### **1. Backend Setup**
 
-### Frontend
-
-* React (Vite)
-* JavaScript (ES6)
-* CSS
-* Context API
-* Axios (REST API communication)
-
-### Backend
-
-* Python 3.10+
-* FastAPI
-* Uvicorn
-* Rule-based AI logic
-* PDF text extraction
-
-### AI / Analysis
-
-* Document-based analysis
-* Shariah rule evaluation
-* Readiness scoring model
-* (Optional) LLM integration (e.g. Gemini)
-
----
-
-## ⚙️ Installation & Setup
-
-### 1️⃣ Backend Setup (Python)
+Navigate to the backend folder and install dependencies.
 
 ```bash
 cd backend
+# Create virtual environment (optional but recommended)
 python -m venv venv
-venv\Scripts\activate   # Windows
-pip install fastapi uvicorn
-uvicorn main:app --reload
-```
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-Backend will run at:
+# Install required packages
+pip install fastapi uvicorn google-generativeai pymupdf python-multipart
 
 ```
-http://127.0.0.1:8000
-```
 
----
-
-### 2️⃣ Frontend Setup (React)
+**Run the Server:**
 
 ```bash
+uvicorn main:app --reload
+# Server will start at http://127.0.0.1:8000
+
+```
+
+### **2. Frontend Setup**
+
+Navigate to the frontend folder and install dependencies.
+
+```bash
+cd frontend
 npm install
+
+```
+
+**Run the Client:**
+
+```bash
 npm run dev
-```
-
-Frontend will run at:
+# App will start at http://localhost:5173
 
 ```
-http://localhost:5173
-```
 
 ---
 
-## 🔌 API Overview (Backend)
+## 🧪 How to Test (Demo Flow)
 
-| Endpoint   | Method | Description                                      |
-| ---------- | ------ | ------------------------------------------------ |
-| `/analyze` | POST   | Upload document & perform Shariah audit analysis |
-| `/health`  | GET    | Backend health check                             |
+1. **Login:** Access the dashboard (Demo Mode).
+2. **Select Engine:** Choose **"Stock Screening (SC Malaysia)"** from the dropdown.
+3. 
+**Upload:** Go to the `demo document/` folder and upload `Audited_Financial_Statement_FIXED.pdf`.
 
----
 
-## 📊 Example Output
+4. **View Result:**
+* Observe the **"Math Override"** in action: The backend calculates the Debt Ratio (e.g., 28%) and marks it "Pass" before the AI speaks.
+* Check the **"AI Remediation"**: The AI suggests specific clauses for any missing keywords.
 
-```
-🎯 Shariah Audit Readiness Analysis
 
-Readiness Score: 80%
-
-Risk:
-Core business activities and revenue streams require formal Shariah certification.
-
-Recommendation:
-Conduct detailed Shariah review of business operations and obtain certification
-from an authorized Shariah Advisory Board.
-```
 
 ---
 
-## 🎓 Academic & Practical Use
+## 📜 License
 
-This project is suitable for:
-
-* 🎓 Final Year Project (FYP)
-* 🏦 Islamic banking & finance research
-* 📑 Shariah audit simulations
-* 🤖 AI application in Islamic finance
-* 📊 Governance, Risk & Compliance (GRC) systems
+This project is a prototype for educational and innovation purposes.
 
 ---
 
-## ⚠️ Disclaimer
-
-This system is intended for **educational and prototype purposes only**.
-It does **not replace official Shariah audits** conducted by certified Shariah auditors or regulatory authorities.
-
----
-
-## 📌 Future Enhancements
-
-* Integration with official Shariah standards (AAOIFI / BNM)
-* Advanced LLM-based document reasoning
-* Multi-document comparative audits
-* User authentication & role management
-* Exportable audit reports (PDF)
-
----
-
-## 👨‍💻 Author
-
-**Faiz Akhyar**
+**Developed by [Your Name/Team Name]**
+*Built for the Future of Islamic Finance.*
