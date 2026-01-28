@@ -155,5 +155,5 @@ This project is a prototype for educational and innovation purposes.
 
 ---
 
-**Developed by [Your Name/Team Name]**
+**Developed by UCIMFIQOLBI**
 *Built for the Future of Islamic Finance.*
