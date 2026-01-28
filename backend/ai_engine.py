@@ -4,7 +4,7 @@ import os
 from knowledge_base import get_guideline_text  # type: ignore
 
 # ✅ API KEY SETUP
-MY_API_KEY = "AIzaSyCapfpYXUoMfWEZVlZ_5Oe1SFNspcDFTqA" 
+MY_API_KEY = "api key here" 
 genai.configure(api_key=MY_API_KEY)
 
 def ai_recommendation(missing_items, full_text_snippet, doc_type="general"):
@@ -121,4 +121,5 @@ def chat_with_document(file_text, user_message=None):
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
+
         return f"Error processing document: {str(e)}"
